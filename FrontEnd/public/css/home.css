@@ -1,0 +1,76 @@
+@charset "utf-8";
+ /* class:DAAA/1B/04
+Name: Subathra Sundarbabu
+Admin no.: P2100845 */
+
+ h1{
+  font-family: 'Times New Roman', Times, serif;
+  font-size: 2em;
+  text-align: center;
+}
+h1{
+  color: white;
+  position: absolute;
+  top: 50%;
+  width: 100%;
+  text-shadow: 5px 5px 10px #000000;
+  font-family: 'Times New Roman', Times, serif;
+  text-align: center;
+  top: 50px;
+  right:5px;
+
+
+}
+
+/*About Me page*/
+img{
+  display: block;
+}
+
+  /*navigation bar*/
+.nav{
+    background-color: rgba(0, 0, 0, 0.897);
+    color: #000000;
+    list-style: none;
+    text-align: right;
+
+  }
+  .nav > li{
+    display: inline-block;
+    padding: 15px;
+    margin: 0 10px;
+  
+  }
+  .nav > li > a{
+    text-decoration: none;
+    text-align: right;
+    color: #ffffff;
+    display: block;
+    border-radius: 10px;
+    padding: 5px;
+
+  }
+  .nav > li >a:hover {
+     background-color:#c2c2c2
+  }
+
+nav ul {
+    list-style: none;
+    list-style-image: none;
+ }
+ 
+nav a {
+    text-decoration: none;
+ }
+
+ .container2 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+  text-align: center;
+} 
+
+.registerbox{
+  text-align: center;
+
+}

@@ -1,0 +1,22 @@
+NAME OF PROJECT: SP IT
+
+CONTENTS IN FOLDER:
+-sp_it database(sql file)
+-Source code under controller and models folder(Javascript files)
+-readME file(Text file)
+-New apis testing(word document file)
+
+
+ACCESSING THE FILES:
+
+STEP 1:
+Unzip p2012155_SubathraSundarbabu_DAAA1B04_Assignment 2.zip folder 
+upload in the Vs code.
+
+STEP 2:
+Open the sql file in mysql workbench.
+
+STEP 3: 
+Open Vs Code. 
+Run the frontend and backend folders using nodemon.
+Test the files using google chrome.

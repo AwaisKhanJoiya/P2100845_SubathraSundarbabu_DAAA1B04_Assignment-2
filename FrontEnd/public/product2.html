@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+  <!-- class:DAAA/1B/04
+Name: Subathra Sundarbabu
+Admin no.: P2100845-->
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="css/style.css" rel="stylesheet" />
+        <link href="../CSS/home.css" rel="stylesheet" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+<title>Products</title>
+        <script>
+             $(document).ready(function () { 
+                $("#Logout").click(function () {
+                           window.localStorage.clear();
+                           window.location.assign("http://localhost:3001/login.html");
+            }) 
+            $("#view").click(function () {
+                           window.location.assign("http://localhost:3001/review.html");
+            })
+            $("#view1").click(function () {
+                           window.location.assign("http://localhost:3001/review.html");
+            })
+            $("#view2").click(function () {
+                           window.location.assign("http://localhost:3001/review.html");
+            })
+            $("#category").click(function () {
+                           window.location.assign("http://localhost:3001/category.html");
+            })
+            $("#product").click(function () {
+                           window.location.assign("http://localhost:3001/addproduct.html");
+            })
+        const baseUrl = "http://localhost:3000";
+        const token = localStorage.getItem("token");
+        const loggedInUserID = parseInt(localStorage.getItem("loggedInUserID"));
+        const type = localStorage.getItem("type");
+        const url = window.location.toString();
+        const productid = parseInt(url.split("/").slice(-1)[0]);
+
+        axios.get(`${baseUrl}/product/${productid}`)
+            .then((response) => {
+                const product = response.data[0];
+                console.log(response.data)
+                const productdetailsHtml = `
+                        <div class="card3" style="margin-top: 2rem;">
+                            <div class="card-body">
+                                <p class="card-text">GAME TITLE: ${product.name}</p>
+                                <p class="card-text">GAME DESCRIPTION: ${product.description}</p>
+                                <p class="card-text">PRICE: ${product.price}</p>
+                                <p class="card-text">BRAND:: ${product.brand}</p>
+                                <a href="/users/${loggedInUserID}/game/${productid}/review"><button>Add A review</button></a>
+                            </div>
+                            
+                        </div>
+                        `;
+                
+                $("#details").append(productdetailsHtml);
+
+            })
+            .catch((error) => {
+                console.log(error);
+
+            });
+
+        axios.get(`${baseUrl}/product/${productid}/review/`)
+            .then((response) => {
+                const reviews = response.data;
+                reviews.forEach((review) => {
+                    const getreviewHtml = `
+                        <div class="card3" style="margin-top: 2rem;">
+                            <div class="card-body">
+                                <p class="card-text">NAME: ${review.username}</p>
+                                <p class="card-text">REVIEW: ${review.review}</p>
+                                <p class="card-text">RATING: ${review.rating}</p>
+                            </div>
+                            <div class="card-footer text-muted">
+                                ${review.created_at}
+                            </div>
+                        </div>
+                        `;
+
+                    $("#reviews").append(getreviewHtml);
+                });
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        })   
+        </script>
+
+</head>
+<body>
+	<ul class="nav">
+        <li><a href="/login.html" >Log in</a></li>
+        <li><a href="/home.html" >Home</a></li>
+        <li><a href="/profile.html">Profile</a></li>
+        <li><a href="/product2.html" >Products</a></li>
+        <li><a href="/Register.html">Register</a></li>
+        <br><br>
+        <div class="center" style="position: absolute;left: 20em; top: 10px;">
+            <input type="text" id="mySearch" onkeyup="myFunction()" placeholder="Search the brand" title="Type in a category">
+            <ul id="myMenu">
+              <li><a href="product.html">Apple</a></li>
+              <li><a href="product1.html">SP IT!</a></li>
+
+            </ul>
+        <p><input type="button" id="Logout" value="Log Out" style="position: absolute;right: 280px; top: 5px;"/></p>
+      </ul>
+      <div class="container">
+        <h4 style="margin-top: 2rem; text-align: center; ">PRODUCT DETAILS</h4>
+        <div id="details">
+        </div>
+        <div id="reviews"></div>
+<br>
+      <div class="row">
+        <div class="column">
+          <div class="card"><img src="pic.2.jpg" alt="Denim Jeans" style="width:100%">
+            <h4>Iphone</h4>
+            <p class="price">$1123.00</p>
+            <p>name: Apple Iphone series 12 <br>
+                category: phone <br>
+                description: Best phone <br> 
+                rate: 3(not good)  </p>
+            <p><button id="view">view reviews</button></p>
+        </div>
+        </div>
+        <div class="column">
+            <div class="card">
+                <img src="pic.3.jpg" alt="Denim Jeans" style="width:100%">
+              <h4>SP AMD Ryzen 3600 Clcok</h4>
+              <p class="price">$280.00</p>
+              <p>name: SP AMD Ryzen 3600 Clcok <br>
+                  category: clock <br>
+                  description: Good clock.Useful <br> 
+                  rate: 4 (good)  </p></p>
+                  <p><button id="view1">view reviews</button></p>
+          </div>
+          </div>
+          <div class="column">
+              <div class="card">
+                  <img src="pic4.jpg" alt="Denim Jeans" style="width:100%">
+                  <h4>SP AMD Ryzen 3600 phone</h4>
+                  <p class="price">$855.00</p>
+                  <p>SP AMD Ryzen 3600 phone <br>
+                      category: phone <br>
+                      description: Best phone <br> 
+                      rate: 4 (good)  </p></p>
+                      <p><button id="view2">view reviews</button></p>
+        </div>
+        <br><br><br><br><br><br>
+        <p><button id="category" style="width: 250px;">Add category</button></p>
+        <p><button id="product" style="width: 250px;">Add product</button></p><br><br>
+        <script>
+            function myFunction() {
+              var input, filter, ul, li, a, i;
+              input = document.getElementById("mySearch");
+              filter = input.value.toUpperCase();
+              ul = document.getElementById("myMenu");
+              li = ul.getElementsByTagName("li");
+              for (i = 0; i < li.length; i++) {
+                a = li[i].getElementsByTagName("a")[0];
+                if (a.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                  li[i].style.display = "";
+                } else {
+                  li[i].style.display = "none";
+                }
+              }
+            }
+            var productInfo = localStorage.getItem('productInfo');
+            var userJsonData = JSON.parse(productInfo);
+            var productname = userJsonData.name;
+            var productdescription = userJsonData.description;
+            var productprice = userJsonData.price;
+            var productcategoryname = userJsonData.categoryname;
+            var productcategoryid = userJsonData.categoryid;
+            // var userpic = userJsonData.pic; 
+            document.getElementById("name").value = productname; 
+            document.getElementById("description").value = productdescription; 
+            document.getElementById("price").value = productprice; 
+            document.getElementById("categoryname").value = productcategoryname ; 
+            document.getElementById("categoryid").value = productcategoryid; 
+        //    document.getElementById("profilepic").src = "http://"+userpic;
+
+        var categoryInfo = localStorage.getItem('categoryInfo');
+            var userJsonData = JSON.parse(productInfo);
+            var categoryname = userJsonData.name;
+            var categorydescription = userJsonData.description;
+            // var userpic = userJsonData.pic; 
+            document.getElementById("name").value = categoryname; 
+            document.getElementById("description").value = categorydescription; 
+        //    document.getElementById("profilepic").src = "http://"+userpic;
+            </script>
+</html>
+</body>
+</html>

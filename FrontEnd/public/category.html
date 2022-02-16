@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<html>
+
+  <!-- class:DAAA/1B/04
+Name: Subathra Sundarbabu
+Admin no.: P2100845-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Add category</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="../CSS/home.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- <script>
+             $(document).ready(function () {  
+            // $("#add").click(function () {
+            //                window.location.assign("http://localhost:3001/product.html");
+            // })    
+            $("#add").click(function () {  
+                var name=$('#category').val();
+                var description=$('#description').val();
+                var data = "{\"category\":\""+name+"\", \"description\":\""+description+"\"}";
+                console.log(data);
+                $.ajax({                                                               
+                     url: 'http://localhost:3000/category' ,  
+                     type: 'POST', 
+                     data: data,
+                     contentType: "application/json; charset=utf-8",
+                     dataType: "json",  
+                     success: function (data, textStatus, xhr) {  
+                         console.log(data)
+                         if (data != null){                    
+                            localStorage.setItem('token',data.token);
+                            localStorage.setItem('categoryInfo',JSON.stringify(data.categoryInfo));
+                            window.location.assign("http://localhost:3001/product2.html");
+                         } else {
+                             console.log("Error");
+                         }                                                                 
+                     },  
+                     error: function (xhr, textStatus, errorThrown) {  
+                         console.log('Error in Operation');  
+                     }  
+                });  
+                return false;
+             });  })
+    </script> -->
+</head>
+
+<body>
+    <ul class="nav">
+        <li><a href="/login.html" >Log in</a></li>
+		<li><a href="/home.html" >Home</a></li>
+        <li><a href="/profile.html">Profile</a></li>
+        <li><a href="/product2.html" >Products</a></li>
+        <li><a href="/Register.html">Register</a></li>
+        <p><input type="button" id="Logout" value="Log Out" style="margin-top: 1em;position: absolute;right: 50px;"/></p>
+
+              </ul>
+    <div class="con">
+        <div class="d-flex justify-content-center h-100">
+            <div class="card5">
+                <div class="card-header">
+                    <h3 class="text-center">Add a new category</h3>
+
+                </div>
+                <div class="card-body">
+                    <form id="addgame-form">
+
+                        <div class="form-group">
+
+                            <input type="text" class="form-control" id="category" placeholder="category">
+                        </div>
+                        <div class="form-group">
+
+                            <input class="form-control" id="description" placeholder="description"></input>
+                        </div>
+                            <button type="submit" class="btn btn-warning" id="add">Add</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.25.0/axios.min.js" integrity="sha512-/Q6t3CASm04EliI1QyIDAA/nDo9R8FQ/BULoUFyN4n/BDdyIxeH7u++Z+eobdmr11gG5D/6nPFyDlnisDwhpYA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script>
+        const baseUrl = "http://localhost:3000";
+        const token = localStorage.getItem("token");
+        const loggedInUserID = JSON.parse(localStorage.getItem("userInfo"));
+        if(loggedInUserID.type !== "Admin"){
+            window.location.href = "/home.html"
+        }
+
+        $("#addgame-form").submit((event) => {
+            // prevent page reload
+            event.preventDefault();
+            const title = $("#category").val();
+            const description = $("#description").val();
+            // axios.get(`${baseUrl}/categoryid/${category}`)
+            //     .then((response) => {
+            //         const catid = response.data[0];
+                    const requestBody = {
+                        category: title,
+                        description: description,
+                    };
+                    axios.post(`${baseUrl}/category`, requestBody, {
+                        headers: {
+                            "Authorization": "Bearer " + token
+                        }
+                    })
+                        .then((response) => {
+                            alert("category has been added succesfully")
+                            window.location.href = "/home.html";
+                        })
+                        .catch((error) => {
+                            if (error.response.status === 500) {
+                                alert("Wrong info");
+                            }
+                            else {
+                                alert("Something unexpected went wrong.");
+                            }
+                        });
+                // });
+        });
+
+    </script>
+</body>
+
+</html>
